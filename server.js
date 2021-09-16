@@ -22,6 +22,7 @@ addEventListener("fetch", async (event) => {
         status: 200,
         headers: {
           "content-type": "application/json",
+          "access-control-allow-origin": "*"
         }
       })
   } else {
@@ -30,6 +31,7 @@ addEventListener("fetch", async (event) => {
         status: 500,
         headers: {
           "content-type": "text/html",
+          "access-control-allow-origin": "*"
         }
       })
     )

@@ -1,0 +1,939 @@
+{
+  "results": [
+    {
+      "events": [
+        {
+          "timestamp": 1631678623862,
+          "remaining": 13,
+          "task": "pagerduty"
+        },
+        {
+          "timestamp": 1631678610200,
+          "remaining": 14,
+          "task": "otm"
+        },
+        {
+          "timestamp": 1631678609051,
+          "remaining": 15,
+          "task": "octolint"
+        },
+        {
+          "timestamp": 1631671957198,
+          "remaining": 16,
+          "task": "nrrdbot"
+        },
+        {
+          "timestamp": 1631671946185,
+          "remaining": 17,
+          "task": "nerd-graph"
+        },
+        {
+          "timestamp": 1631671879497,
+          "remaining": 18,
+          "task": "mmf"
+        },
+        {
+          "timestamp": 1631671861129,
+          "remaining": 19,
+          "task": "librenms"
+        },
+        {
+          "timestamp": 1631671853922,
+          "remaining": 20,
+          "task": "kafka-topics"
+        },
+        {
+          "timestamp": 1631671852619,
+          "remaining": 21,
+          "task": "kafka-metrics"
+        },
+        {
+          "timestamp": 1631671851680,
+          "remaining": 22,
+          "task": "kafka-meatballs"
+        },
+        {
+          "timestamp": 1631671845338,
+          "remaining": 23,
+          "task": "kafka-lag"
+        },
+        {
+          "timestamp": 1631671845138,
+          "remaining": 24,
+          "task": "jive"
+        },
+        {
+          "timestamp": 1631671845079,
+          "remaining": 25,
+          "task": "infra-agent-staging"
+        },
+        {
+          "timestamp": 1631671844555,
+          "remaining": 26,
+          "task": "harbourmaster"
+        },
+        {
+          "timestamp": 1631671782080,
+          "remaining": 27,
+          "task": "grand-central"
+        },
+        {
+          "timestamp": 1631671635771,
+          "remaining": 28,
+          "task": "gradle-wrappers"
+        },
+        {
+          "timestamp": 1631670977868,
+          "remaining": 29,
+          "task": "github-users"
+        },
+        {
+          "timestamp": 1631670153484,
+          "remaining": 30,
+          "task": "github-repos"
+        },
+        {
+          "timestamp": 1631669709619,
+          "remaining": 31,
+          "task": "galileo"
+        },
+        {
+          "timestamp": 1631669697940,
+          "remaining": 32,
+          "task": "foglights"
+        },
+        {
+          "timestamp": 1631669697228,
+          "remaining": 33,
+          "task": "feature-flags"
+        },
+        {
+          "timestamp": 1631669695975,
+          "remaining": 34,
+          "task": "ec2"
+        },
+        {
+          "timestamp": 1631669688565,
+          "remaining": 35,
+          "task": "docker-images"
+        },
+        {
+          "timestamp": 1631665305878,
+          "remaining": 36,
+          "task": "dns"
+        },
+        {
+          "timestamp": 1631664488877,
+          "remaining": 37,
+          "task": "dirac-schema"
+        },
+        {
+          "timestamp": 1631664488557,
+          "remaining": 38,
+          "task": "deployments"
+        },
+        {
+          "timestamp": 1631664485015,
+          "remaining": 39,
+          "task": "capacity-plan"
+        },
+        {
+          "timestamp": 1631664483343,
+          "remaining": 40,
+          "task": "backpack"
+        },
+        {
+          "timestamp": 1631664180966,
+          "remaining": 41,
+          "task": "aws-accounts"
+        },
+        {
+          "timestamp": 1631664180634,
+          "remaining": 42,
+          "task": "auggie"
+        },
+        {
+          "timestamp": 1631664180211,
+          "remaining": 43,
+          "task": "aha"
+        },
+        {
+          "timestamp": 1631664132980,
+          "remaining": 44,
+          "task": "agent-state"
+        },
+        {
+          "timestamp": 1631664131560,
+          "remaining": 45,
+          "task": "sync_from_s3.sh"
+        },
+        {
+          "timestamp": 1631659329578,
+          "remaining": 0,
+          "task": "load.sh"
+        },
+        {
+          "timestamp": 1631659282088,
+          "remaining": 1,
+          "task": "transform.sh"
+        },
+        {
+          "timestamp": 1631658655789,
+          "remaining": 2,
+          "task": "workday"
+        },
+        {
+          "timestamp": 1631658535014,
+          "remaining": 3,
+          "task": "upboard"
+        },
+        {
+          "timestamp": 1631658534643,
+          "remaining": 4,
+          "task": "treasure-map"
+        },
+        {
+          "timestamp": 1631658532107,
+          "remaining": 5,
+          "task": "team-store"
+        },
+        {
+          "timestamp": 1631658528450,
+          "remaining": 6,
+          "task": "snyk"
+        },
+        {
+          "timestamp": 1631658504078,
+          "remaining": 7,
+          "task": "signum"
+        },
+        {
+          "timestamp": 1631658034354,
+          "remaining": 8,
+          "task": "signum-eu"
+        },
+        {
+          "timestamp": 1631658034294,
+          "remaining": 9,
+          "task": "rpm-accounts"
+        },
+        {
+          "timestamp": 1631658032788,
+          "remaining": 10,
+          "task": "reference-data"
+        },
+        {
+          "timestamp": 1631658032687,
+          "remaining": 11,
+          "task": "phpipam"
+        },
+        {
+          "timestamp": 1631658031688,
+          "remaining": 12,
+          "task": "papers"
+        },
+        {
+          "timestamp": 1631657404827,
+          "remaining": 13,
+          "task": "pagerduty"
+        },
+        {
+          "timestamp": 1631657389078,
+          "remaining": 14,
+          "task": "otm"
+        },
+        {
+          "timestamp": 1631657387618,
+          "remaining": 15,
+          "task": "octolint"
+        },
+        {
+          "timestamp": 1631650089675,
+          "remaining": 16,
+          "task": "nrrdbot"
+        },
+        {
+          "timestamp": 1631650078391,
+          "remaining": 17,
+          "task": "nerd-graph"
+        },
+        {
+          "timestamp": 1631650007965,
+          "remaining": 18,
+          "task": "mmf"
+        },
+        {
+          "timestamp": 1631649992043,
+          "remaining": 19,
+          "task": "librenms"
+        },
+        {
+          "timestamp": 1631649983630,
+          "remaining": 20,
+          "task": "kafka-topics"
+        },
+        {
+          "timestamp": 1631649982348,
+          "remaining": 21,
+          "task": "kafka-metrics"
+        },
+        {
+          "timestamp": 1631649981401,
+          "remaining": 22,
+          "task": "kafka-meatballs"
+        },
+        {
+          "timestamp": 1631649975605,
+          "remaining": 23,
+          "task": "kafka-lag"
+        },
+        {
+          "timestamp": 1631649975353,
+          "remaining": 24,
+          "task": "jive"
+        },
+        {
+          "timestamp": 1631649975241,
+          "remaining": 25,
+          "task": "infra-agent-staging"
+        },
+        {
+          "timestamp": 1631649974799,
+          "remaining": 26,
+          "task": "harbourmaster"
+        },
+        {
+          "timestamp": 1631649910602,
+          "remaining": 27,
+          "task": "grand-central"
+        },
+        {
+          "timestamp": 1631649750187,
+          "remaining": 28,
+          "task": "gradle-wrappers"
+        },
+        {
+          "timestamp": 1631649097657,
+          "remaining": 29,
+          "task": "github-users"
+        },
+        {
+          "timestamp": 1631648279076,
+          "remaining": 30,
+          "task": "github-repos"
+        },
+        {
+          "timestamp": 1631647876769,
+          "remaining": 31,
+          "task": "galileo"
+        },
+        {
+          "timestamp": 1631647865618,
+          "remaining": 32,
+          "task": "foglights"
+        },
+        {
+          "timestamp": 1631647864949,
+          "remaining": 33,
+          "task": "feature-flags"
+        },
+        {
+          "timestamp": 1631647863589,
+          "remaining": 34,
+          "task": "ec2"
+        },
+        {
+          "timestamp": 1631647852205,
+          "remaining": 35,
+          "task": "docker-images"
+        },
+        {
+          "timestamp": 1631643569308,
+          "remaining": 36,
+          "task": "dns"
+        },
+        {
+          "timestamp": 1631642743151,
+          "remaining": 37,
+          "task": "dirac-schema"
+        },
+        {
+          "timestamp": 1631642742700,
+          "remaining": 38,
+          "task": "deployments"
+        },
+        {
+          "timestamp": 1631642741110,
+          "remaining": 39,
+          "task": "capacity-plan"
+        },
+        {
+          "timestamp": 1631642739209,
+          "remaining": 40,
+          "task": "backpack"
+        },
+        {
+          "timestamp": 1631642526223,
+          "remaining": 41,
+          "task": "aws-accounts"
+        },
+        {
+          "timestamp": 1631642525867,
+          "remaining": 42,
+          "task": "auggie"
+        },
+        {
+          "timestamp": 1631642525413,
+          "remaining": 43,
+          "task": "aha"
+        },
+        {
+          "timestamp": 1631642472060,
+          "remaining": 44,
+          "task": "agent-state"
+        },
+        {
+          "timestamp": 1631642470782,
+          "remaining": 45,
+          "task": "sync_from_s3.sh"
+        },
+        {
+          "timestamp": 1631637759223,
+          "remaining": 0,
+          "task": "load.sh"
+        },
+        {
+          "timestamp": 1631637686472,
+          "remaining": 1,
+          "task": "transform.sh"
+        },
+        {
+          "timestamp": 1631637134394,
+          "remaining": 2,
+          "task": "workday"
+        },
+        {
+          "timestamp": 1631637013677,
+          "remaining": 3,
+          "task": "upboard"
+        },
+        {
+          "timestamp": 1631637013261,
+          "remaining": 4,
+          "task": "treasure-map"
+        },
+        {
+          "timestamp": 1631637010874,
+          "remaining": 5,
+          "task": "team-store"
+        },
+        {
+          "timestamp": 1631637007098,
+          "remaining": 6,
+          "task": "snyk"
+        },
+        {
+          "timestamp": 1631636988746,
+          "remaining": 7,
+          "task": "signum"
+        },
+        {
+          "timestamp": 1631636517365,
+          "remaining": 8,
+          "task": "signum-eu"
+        },
+        {
+          "timestamp": 1631636517306,
+          "remaining": 9,
+          "task": "rpm-accounts"
+        },
+        {
+          "timestamp": 1631636515964,
+          "remaining": 10,
+          "task": "reference-data"
+        },
+        {
+          "timestamp": 1631636515834,
+          "remaining": 11,
+          "task": "phpipam"
+        },
+        {
+          "timestamp": 1631636514710,
+          "remaining": 12,
+          "task": "papers"
+        },
+        {
+          "timestamp": 1631635897480,
+          "remaining": 13,
+          "task": "pagerduty"
+        },
+        {
+          "timestamp": 1631635881474,
+          "remaining": 14,
+          "task": "otm"
+        },
+        {
+          "timestamp": 1631635880386,
+          "remaining": 15,
+          "task": "octolint"
+        },
+        {
+          "timestamp": 1631628335371,
+          "remaining": 16,
+          "task": "nrrdbot"
+        },
+        {
+          "timestamp": 1631628321144,
+          "remaining": 17,
+          "task": "nerd-graph"
+        },
+        {
+          "timestamp": 1631628236813,
+          "remaining": 18,
+          "task": "mmf"
+        },
+        {
+          "timestamp": 1631628222478,
+          "remaining": 19,
+          "task": "librenms"
+        },
+        {
+          "timestamp": 1631628215227,
+          "remaining": 20,
+          "task": "kafka-topics"
+        },
+        {
+          "timestamp": 1631628213901,
+          "remaining": 21,
+          "task": "kafka-metrics"
+        },
+        {
+          "timestamp": 1631628212910,
+          "remaining": 22,
+          "task": "kafka-meatballs"
+        },
+        {
+          "timestamp": 1631628207063,
+          "remaining": 23,
+          "task": "kafka-lag"
+        },
+        {
+          "timestamp": 1631628206773,
+          "remaining": 24,
+          "task": "jive"
+        },
+        {
+          "timestamp": 1631628206713,
+          "remaining": 25,
+          "task": "infra-agent-staging"
+        },
+        {
+          "timestamp": 1631628206226,
+          "remaining": 26,
+          "task": "harbourmaster"
+        },
+        {
+          "timestamp": 1631628146956,
+          "remaining": 27,
+          "task": "grand-central"
+        },
+        {
+          "timestamp": 1631627974361,
+          "remaining": 28,
+          "task": "gradle-wrappers"
+        },
+        {
+          "timestamp": 1631627327692,
+          "remaining": 29,
+          "task": "github-users"
+        },
+        {
+          "timestamp": 1631626484205,
+          "remaining": 30,
+          "task": "github-repos"
+        },
+        {
+          "timestamp": 1631626077233,
+          "remaining": 31,
+          "task": "galileo"
+        },
+        {
+          "timestamp": 1631626066552,
+          "remaining": 32,
+          "task": "foglights"
+        },
+        {
+          "timestamp": 1631626065834,
+          "remaining": 33,
+          "task": "feature-flags"
+        },
+        {
+          "timestamp": 1631626064593,
+          "remaining": 34,
+          "task": "ec2"
+        },
+        {
+          "timestamp": 1631626055989,
+          "remaining": 35,
+          "task": "docker-images"
+        },
+        {
+          "timestamp": 1631621881394,
+          "remaining": 36,
+          "task": "dns"
+        },
+        {
+          "timestamp": 1631621085162,
+          "remaining": 37,
+          "task": "dirac-schema"
+        },
+        {
+          "timestamp": 1631621084836,
+          "remaining": 38,
+          "task": "deployments"
+        },
+        {
+          "timestamp": 1631621083012,
+          "remaining": 39,
+          "task": "capacity-plan"
+        },
+        {
+          "timestamp": 1631621081392,
+          "remaining": 40,
+          "task": "backpack"
+        },
+        {
+          "timestamp": 1631620933061,
+          "remaining": 41,
+          "task": "aws-accounts"
+        },
+        {
+          "timestamp": 1631620932735,
+          "remaining": 42,
+          "task": "auggie"
+        },
+        {
+          "timestamp": 1631620932364,
+          "remaining": 43,
+          "task": "aha"
+        },
+        {
+          "timestamp": 1631620875173,
+          "remaining": 44,
+          "task": "agent-state"
+        },
+        {
+          "timestamp": 1631620873975,
+          "remaining": 45,
+          "task": "sync_from_s3.sh"
+        },
+        {
+          "timestamp": 1631615489716,
+          "remaining": 0,
+          "task": "load.sh"
+        },
+        {
+          "timestamp": 1631615446048,
+          "remaining": 1,
+          "task": "transform.sh"
+        },
+        {
+          "timestamp": 1631614820297,
+          "remaining": 2,
+          "task": "workday"
+        },
+        {
+          "timestamp": 1631614699535,
+          "remaining": 3,
+          "task": "upboard"
+        },
+        {
+          "timestamp": 1631614699133,
+          "remaining": 4,
+          "task": "treasure-map"
+        },
+        {
+          "timestamp": 1631614694941,
+          "remaining": 5,
+          "task": "team-store"
+        },
+        {
+          "timestamp": 1631614690945,
+          "remaining": 6,
+          "task": "snyk"
+        },
+        {
+          "timestamp": 1631614681953,
+          "remaining": 7,
+          "task": "signum"
+        },
+        {
+          "timestamp": 1631614211085,
+          "remaining": 8,
+          "task": "signum-eu"
+        },
+        {
+          "timestamp": 1631614211025,
+          "remaining": 9,
+          "task": "rpm-accounts"
+        },
+        {
+          "timestamp": 1631614209460,
+          "remaining": 10,
+          "task": "reference-data"
+        },
+        {
+          "timestamp": 1631614209343,
+          "remaining": 11,
+          "task": "phpipam"
+        },
+        {
+          "timestamp": 1631614208336,
+          "remaining": 12,
+          "task": "papers"
+        },
+        {
+          "timestamp": 1631613597267,
+          "remaining": 13,
+          "task": "pagerduty"
+        },
+        {
+          "timestamp": 1631613584123,
+          "remaining": 14,
+          "task": "otm"
+        },
+        {
+          "timestamp": 1631613583041,
+          "remaining": 15,
+          "task": "octolint"
+        },
+        {
+          "timestamp": 1631606590817,
+          "remaining": 16,
+          "task": "nrrdbot"
+        },
+        {
+          "timestamp": 1631606578595,
+          "remaining": 17,
+          "task": "nerd-graph"
+        },
+        {
+          "timestamp": 1631606452815,
+          "remaining": 18,
+          "task": "mmf"
+        },
+        {
+          "timestamp": 1631606436296,
+          "remaining": 19,
+          "task": "librenms"
+        },
+        {
+          "timestamp": 1631606428314,
+          "remaining": 20,
+          "task": "kafka-topics"
+        },
+        {
+          "timestamp": 1631606426954,
+          "remaining": 21,
+          "task": "kafka-metrics"
+        },
+        {
+          "timestamp": 1631606425975,
+          "remaining": 22,
+          "task": "kafka-meatballs"
+        },
+        {
+          "timestamp": 1631606419111,
+          "remaining": 23,
+          "task": "kafka-lag"
+        },
+        {
+          "timestamp": 1631606418863,
+          "remaining": 24,
+          "task": "jive"
+        },
+        {
+          "timestamp": 1631606418737,
+          "remaining": 25,
+          "task": "infra-agent-staging"
+        },
+        {
+          "timestamp": 1631606418278,
+          "remaining": 26,
+          "task": "harbourmaster"
+        },
+        {
+          "timestamp": 1631606358974,
+          "remaining": 27,
+          "task": "grand-central"
+        },
+        {
+          "timestamp": 1631606177095,
+          "remaining": 28,
+          "task": "gradle-wrappers"
+        },
+        {
+          "timestamp": 1631605542555,
+          "remaining": 29,
+          "task": "github-users"
+        },
+        {
+          "timestamp": 1631604732087,
+          "remaining": 30,
+          "task": "github-repos"
+        },
+        {
+          "timestamp": 1631604340204,
+          "remaining": 31,
+          "task": "galileo"
+        },
+        {
+          "timestamp": 1631604328763,
+          "remaining": 32,
+          "task": "foglights"
+        },
+        {
+          "timestamp": 1631604328028,
+          "remaining": 33,
+          "task": "feature-flags"
+        },
+        {
+          "timestamp": 1631604326757,
+          "remaining": 34,
+          "task": "ec2"
+        },
+        {
+          "timestamp": 1631604317984,
+          "remaining": 35,
+          "task": "docker-images"
+        },
+        {
+          "timestamp": 1631600219836,
+          "remaining": 36,
+          "task": "dns"
+        },
+        {
+          "timestamp": 1631599457865,
+          "remaining": 37,
+          "task": "dirac-schema"
+        },
+        {
+          "timestamp": 1631599457551,
+          "remaining": 38,
+          "task": "deployments"
+        },
+        {
+          "timestamp": 1631599455968,
+          "remaining": 39,
+          "task": "capacity-plan"
+        },
+        {
+          "timestamp": 1631599454381,
+          "remaining": 40,
+          "task": "backpack"
+        },
+        {
+          "timestamp": 1631599333466,
+          "remaining": 41,
+          "task": "aws-accounts"
+        },
+        {
+          "timestamp": 1631599332954,
+          "remaining": 42,
+          "task": "auggie"
+        },
+        {
+          "timestamp": 1631599332527,
+          "remaining": 43,
+          "task": "aha"
+        },
+        {
+          "timestamp": 1631599273990,
+          "remaining": 44,
+          "task": "agent-state"
+        },
+        {
+          "timestamp": 1631599272647,
+          "remaining": 45,
+          "task": "sync_from_s3.sh"
+        },
+        {
+          "timestamp": 1631593630367,
+          "remaining": 0,
+          "task": "load.sh"
+        },
+        {
+          "timestamp": 1631593586670,
+          "remaining": 1,
+          "task": "transform.sh"
+        },
+        {
+          "timestamp": 1631592967386,
+          "remaining": 2,
+          "task": "workday"
+        },
+        {
+          "timestamp": 1631592846646,
+          "remaining": 3,
+          "task": "upboard"
+        },
+        {
+          "timestamp": 1631592846302,
+          "remaining": 4,
+          "task": "treasure-map"
+        },
+        {
+          "timestamp": 1631592843282,
+          "remaining": 5,
+          "task": "team-store"
+        },
+        {
+          "timestamp": 1631592839215,
+          "remaining": 6,
+          "task": "snyk"
+        },
+        {
+          "timestamp": 1631592825560,
+          "remaining": 7,
+          "task": "signum"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "contents": [
+      {
+        "function": "events",
+        "limit": 1000,
+        "columns": [
+          "timestamp",
+          "remaining",
+          "task"
+        ],
+        "order": {
+          "column": "timestamp",
+          "descending": true
+        }
+      }
+    ],
+    "eventTypes": [
+      "eldoradoTask"
+    ],
+    "eventType": "eldoradoTask",
+    "openEnded": true,
+    "messages": [],
+    "beginTimeMillis": 1631592450192,
+    "endTimeMillis": 1631678850192,
+    "beginTime": "2021-09-14T04:07:30Z",
+    "endTime": "2021-09-15T04:07:30Z",
+    "guid": "c8e0eeb4-4c01-551d-23bb-96c9a55fc8ae",
+    "routerGuid": "c8997a51-2235-7b48-61df-802b3d5d392c",
+    "rawSince": "24 HOURS AGO",
+    "rawUntil": "NOW",
+    "rawCompareWith": ""
+  },
+  "performanceStats": {
+    "inspectedCount": 258,
+    "responseTime": 106
+  }
+}

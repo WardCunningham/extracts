@@ -1,0 +1,74 @@
+<div style="padding: 5px">
+  <svg viewBox="0 0 600 300" style="background-color:white">
+
+  <polyline points="0,0 0,300 600,300 600,0 0,0" stroke="#ccc" fill="none" stroke-width="4"/>
+  <polyline points="100,0 100,300" stroke="#ccc" fill="none" stroke-width="1" />
+  <polyline points="200,0 200,300" stroke="#ccc" fill="none" stroke-width="1" />
+  <polyline points="300,0 300,300" stroke="#ccc" fill="none" stroke-width="1" />
+  <polyline points="400,0 400,300" stroke="#ccc" fill="none" stroke-width="1" />
+  <polyline points="500,0 500,300" stroke="#ccc" fill="none" stroke-width="1" />
+
+  <polyline
+    id="ref1"
+    points=""
+    fill="none"
+    stroke="gray"
+    stroke-opacity=".5"
+    stroke-width="3"
+    stroke-linejoin="round"/>
+  <polyline
+    id="ref2"
+    points=""
+    fill="none"
+    stroke="gray"
+    stroke-opacity=".5"
+    stroke-width="3"
+    stroke-linejoin="round"/>
+  <polyline
+    id="now"
+    points=""
+    fill="none"
+    stroke="brown"
+    stroke-opacity=".7"
+    stroke-width="3"
+    stroke-linejoin="round"/>
+</svg>
+<p id=result></p>
+</div>
+
+<script type=module>
+let data = await fetch(`result.json`).then(res => res.json())
+let events = data.results[0].events
+let interval = 6*60*60*1000
+let last = events[0].timestamp
+let start = last - last%interval
+let prev = start-interval
+
+window.result.innerHTML += `${new Date(prev-interval).toLocaleTimeString()}<br>` 
+window.result.innerHTML += `${new Date(prev).toLocaleTimeString()}<br>` 
+window.result.innerHTML += `${new Date(start).toLocaleTimeString()}<br>` 
+window.result.innerHTML += `=> ${new Date(last).toLocaleTimeString()}<br>` 
+
+events.reverse()
+
+let one = events.filter(event => event.timestamp >= start)
+let two = events.filter(event => event.timestamp < start && event.timestamp >= prev)
+let three = events.filter(event => event.timestamp < (start-interval) && event.timestamp >= (prev-interval))
+
+draw (window.now, one, start, 'red')
+draw (window.ref1, two, prev, 'gray')
+draw (window.ref2, three, prev-interval, 'gray')
+
+
+function draw(line, seq, t0, color) {
+  const x = s => (s.timestamp-t0) * (600/interval)
+  const y = s => 300 - s.remaining * (300/50)
+  let points = `${x(seq[0])},${y(seq[0])} `
+  for (let i = 1; i<seq.length; i++) {
+    points += `${x(seq[i-1])},${y(seq[i])} `
+    points += `${x(seq[i])},${y(seq[i])} `
+  }
+  line.setAttribute('points',points)
+
+}
+</script>

@@ -1,3 +1,5 @@
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🟡</text></svg>">
+
 <div style="padding: 5px">
   <svg viewBox="0 0 600 300" style="background-color:white">
 
@@ -49,6 +51,9 @@ window.result.innerHTML += `${new Date(prev).toLocaleTimeString()}<br>`
 window.result.innerHTML += `${new Date(start).toLocaleTimeString()}<br>` 
 window.result.innerHTML += `=> ${new Date(last).toLocaleTimeString()}<br>` 
 
+let now = events[0]
+now.timestamp = Date.now()
+events.unshift(now)
 events.reverse()
 
 let one = events.filter(event => event.timestamp >= start)

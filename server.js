@@ -20,9 +20,9 @@ addEventListener("fetch", async (event) => {
     if (result && result.performanceStats)
       console.log(result.performanceStats)
     else
-      console.log(result)
+      console.log('unexpected result', result)
     event.respondWith(
-      new Response(JSON.stringify(result,null,2)), {
+      new Response(JSON.stringify(result||{},null,2)), {
         status: 200,
         headers: {
           "content-type": "application/json",

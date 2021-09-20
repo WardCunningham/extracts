@@ -56,5 +56,11 @@ if (pathname == `/result.svg`) {
 
 # live results
 
+We incorporate this on-demand rerendered chart using the same syntax used for images in GitHub markdown.
+
+```
+  ![Extracts Remaining](https://extracts.deno.dev/result.svg)
+```
+
 ![Extracts Remaining](https://extracts.deno.dev/result.svg)
 Live NRQL data rendered as SVG at the edge by Deno Deploy then included in GitHub Markdown as an image.

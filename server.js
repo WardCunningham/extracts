@@ -50,5 +50,7 @@ function nrql(query) {
     "Accept": "application/json",
     "X-Query-Key": Deno.env.get("ACCT_1_INSIGHTS_QUERY_KEY")
   }
-  return fetch(url, {headers}).then(res => res.ok ? res.json() : console.log(res.statusText))
+  return fetch(url, {headers})
+    .then(res => res.ok ? res.json() : console.log(res.statusText))
+    .catch(err => console.log('fetch rejected',err))
 }

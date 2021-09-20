@@ -29,6 +29,16 @@ addEventListener("fetch", async (event) => {
           "access-control-allow-origin": "*"
         }
       })
+  } else if (pathname == `/result.svg`) {
+    let result = (await nrql(query))
+    event.respondWith(
+      new Response(svg(result), {
+        status: 200,
+        headers: {
+          "content-type": "image/svg+xml",
+          "access-control-allow-origin": "*"
+        }
+      }))
   } else {
     event.respondWith(
       new Response(`can't handle ${event.request.url}`, {
@@ -53,4 +63,67 @@ function nrql(query) {
   return fetch(url, {headers})
     .then(res => res.ok ? res.json() : console.log(res.statusText))
     .catch(err => console.log('fetch rejected',err))
+}
+
+function svg(result) {
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <svg viewBox="0 0 600 300" style="background-color:white"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g stroke="#ccc" fill="none" stroke-width="1">
+        <polyline points="0,0 0,300 600,300 600,0 0,0" stroke-width="4"/>
+        <polyline points="100,0 100,300"/>
+        <polyline points="200,0 200,300"/>
+        <polyline points="300,0 300,300"/>
+        <polyline points="400,0 400,300"/>
+        <polyline points="500,0 500,300"/>
+        <g stroke-width="3" stroke-linejoin="round">
+        ${lines(result)}
+        </g>
+      </g>
+    </svg>`
+}
+
+function lines(result) {
+  let events = result.results[0].events
+  let interval = 6*60*60*1000
+  let last = events[0].timestamp
+  let start = last - last%interval
+
+  let now = events[0]
+  now.timestamp = Date.now()
+  events.unshift(now)
+  events.reverse()
+
+  let runs = []
+  let first = events[0].timestamp
+  let older = start
+  let look = ['red', 0.7]
+  while (older > first) {
+    let seq = events.filter(event => event.timestamp >= older && event.timestamp < older+interval)
+    runs.push(draw(seq, ...look))
+    older -= interval
+    look = ['gray', 0.1]
+  }
+  return runs.reverse().join("\n")
+
+
+  function draw(seq, color, opacity) {
+    let t0 = seq[0].timestamp - seq[0].timestamp % interval
+    const x = s => (s.timestamp-t0) * (600/interval)
+    const y = s => 300 - s.remaining * (300/50)
+    let points = `${x(seq[0])},${y(seq[0])} `
+    for (let i = 1; i<seq.length; i++) {
+      points += `${x(seq[i-1])},${y(seq[i])} `
+      points += `${x(seq[i])},${y(seq[i])} `
+    }
+    // line.setAttribute('points',points)
+    return `
+      <polyline
+        points="${points}"
+        stroke="${color}"
+        stroke-opacity="${opacity}"
+      />
+    `
+  }
+
 }

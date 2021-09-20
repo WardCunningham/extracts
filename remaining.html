@@ -2,15 +2,16 @@
 
 <div style="padding: 5px">
   <svg viewBox="0 0 600 300" style="background-color:white">
-  <polyline points="0,0 0,300 600,300 600,0 0,0" stroke="#ccc" fill="none" stroke-width="4"/>
-  <polyline points="100,0 100,300" stroke="#ccc" fill="none" stroke-width="1" />
-  <polyline points="200,0 200,300" stroke="#ccc" fill="none" stroke-width="1" />
-  <polyline points="300,0 300,300" stroke="#ccc" fill="none" stroke-width="1" />
-  <polyline points="400,0 400,300" stroke="#ccc" fill="none" stroke-width="1" />
-  <polyline points="500,0 500,300" stroke="#ccc" fill="none" stroke-width="1" />
-  <g id=lines />
-</svg>
-<p id=result></p>
+    <g stroke="#ccc" fill="none" stroke-width="1">
+      <polyline points="0,0 0,300 600,300 600,0 0,0" stroke-width="4"/>
+      <polyline points="100,0 100,300"/>
+      <polyline points="200,0 200,300"/>
+      <polyline points="300,0 300,300"/>
+      <polyline points="400,0 400,300"/>
+      <polyline points="500,0 500,300"/>
+      <g id=lines stroke-width="3" stroke-linejoin="round"/>
+  </svg>
+  <p id=result></p>
 </div>
 
 <script type=module>
@@ -19,27 +20,25 @@ let events = data.results[0].events
 let interval = 6*60*60*1000
 let last = events[0].timestamp
 let start = last - last%interval
-let prev = start-interval
-
-window.result.innerHTML += `${new Date(prev-interval).toLocaleTimeString()}<br>` 
-window.result.innerHTML += `${new Date(prev).toLocaleTimeString()}<br>` 
-window.result.innerHTML += `${new Date(start).toLocaleTimeString()}<br>` 
-window.result.innerHTML += `=> ${new Date(last).toLocaleTimeString()}<br>` 
 
 let now = events[0]
 now.timestamp = Date.now()
 events.unshift(now)
 events.reverse()
 
-let one = events.filter(event => event.timestamp >= start)
-let two = events.filter(event => event.timestamp < start && event.timestamp >= prev)
-let three = events.filter(event => event.timestamp < (start-interval) && event.timestamp >= (prev-interval))
-let runs = [two, three]
+let runs = []
+let first = events[0].timestamp
+let older = start
+let look = ['red', 0.7]
+while (older > first) {
+  let seq = events.filter(event => event.timestamp >= older && event.timestamp < older+interval)
+  runs.push(draw(seq, ...look))
+  older -= interval
+  look = ['gray', 0.1]
+}
 
-lines.innerHTML = [
-  ...runs.map(run => draw(run, 'gray', .3)),
-  draw (one, 'red', .7)
-].join("\n")
+result.innerHTML = `oldest: ${new Date(older).toLocaleString()}<br>current: ${new Date(start).toLocaleString()}`
+lines.innerHTML = runs.reverse().join("\n")
 
 function draw(seq, color, opacity) {
   let t0 = seq[0].timestamp - seq[0].timestamp % interval
@@ -54,11 +53,8 @@ function draw(seq, color, opacity) {
   return `
     <polyline
       points="${points}"
-      fill="none"
       stroke="${color}"
       stroke-opacity="${opacity}"
-      stroke-width="3"
-      stroke-linejoin="round"
     />
   `
 }

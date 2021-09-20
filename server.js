@@ -17,6 +17,10 @@ addEventListener("fetch", async (event) => {
     )
   } else if (pathname == `/result.json`) {
     let result = (await nrql(query))
+    if (result && result.performanceStats)
+      console.log(result.performanceStats)
+    else
+      console.log(result)
     event.respondWith(
       new Response(JSON.stringify(result,null,2)), {
         status: 200,

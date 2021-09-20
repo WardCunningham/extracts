@@ -2,7 +2,7 @@
 // usage: ACCT_1_INSIGHTS_QUERY_KEY='...' ~/.deno/bin/deployctl run server.js
 
 let html = await Deno.readFile("./remaining.html")
-let query = `select task, remaining from eldoradoTask where remaining is not null since 24 hours ago limit 400`
+let query = `select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`
 
 addEventListener("fetch", async (event) => {
   let { pathname, search, origin } = new URL(event.request.url)

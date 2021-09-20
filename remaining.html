@@ -2,38 +2,13 @@
 
 <div style="padding: 5px">
   <svg viewBox="0 0 600 300" style="background-color:white">
-
   <polyline points="0,0 0,300 600,300 600,0 0,0" stroke="#ccc" fill="none" stroke-width="4"/>
   <polyline points="100,0 100,300" stroke="#ccc" fill="none" stroke-width="1" />
   <polyline points="200,0 200,300" stroke="#ccc" fill="none" stroke-width="1" />
   <polyline points="300,0 300,300" stroke="#ccc" fill="none" stroke-width="1" />
   <polyline points="400,0 400,300" stroke="#ccc" fill="none" stroke-width="1" />
   <polyline points="500,0 500,300" stroke="#ccc" fill="none" stroke-width="1" />
-
-  <polyline
-    id="ref1"
-    points=""
-    fill="none"
-    stroke="gray"
-    stroke-opacity=".5"
-    stroke-width="3"
-    stroke-linejoin="round"/>
-  <polyline
-    id="ref2"
-    points=""
-    fill="none"
-    stroke="gray"
-    stroke-opacity=".5"
-    stroke-width="3"
-    stroke-linejoin="round"/>
-  <polyline
-    id="now"
-    points=""
-    fill="none"
-    stroke="brown"
-    stroke-opacity=".7"
-    stroke-width="3"
-    stroke-linejoin="round"/>
+  <g id=lines />
 </svg>
 <p id=result></p>
 </div>
@@ -59,13 +34,15 @@ events.reverse()
 let one = events.filter(event => event.timestamp >= start)
 let two = events.filter(event => event.timestamp < start && event.timestamp >= prev)
 let three = events.filter(event => event.timestamp < (start-interval) && event.timestamp >= (prev-interval))
+let runs = [two, three]
 
-draw (window.now, one, start, 'red')
-draw (window.ref1, two, prev, 'gray')
-draw (window.ref2, three, prev-interval, 'gray')
+lines.innerHTML = [
+  ...runs.map(run => draw(run, 'gray', .3)),
+  draw (one, 'red', .7)
+].join("\n")
 
-
-function draw(line, seq, t0, color) {
+function draw(seq, color, opacity) {
+  let t0 = seq[0].timestamp - seq[0].timestamp % interval
   const x = s => (s.timestamp-t0) * (600/interval)
   const y = s => 300 - s.remaining * (300/50)
   let points = `${x(seq[0])},${y(seq[0])} `
@@ -73,7 +50,17 @@ function draw(line, seq, t0, color) {
     points += `${x(seq[i-1])},${y(seq[i])} `
     points += `${x(seq[i])},${y(seq[i])} `
   }
-  line.setAttribute('points',points)
-
+  // line.setAttribute('points',points)
+  return `
+    <polyline
+      points="${points}"
+      fill="none"
+      stroke="${color}"
+      stroke-opacity="${opacity}"
+      stroke-width="3"
+      stroke-linejoin="round"
+    />
+  `
 }
+
 </script>

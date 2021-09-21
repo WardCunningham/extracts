@@ -36,7 +36,8 @@ addEventListener("fetch", async (event) => {
         status: 200,
         headers: {
           "content-type": "image/svg+xml",
-          "access-control-allow-origin": "*"
+          "access-control-allow-origin": "*",
+          "Cache-Control": "no-cache"
         }
       }))
   } else {

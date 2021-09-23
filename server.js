@@ -82,8 +82,8 @@ function svg(result) {
         ${lines(result)}
         </g>
       </g>
-      <text text-anchor="end" x="590" y="275" style="fill:lightgray">${new Date().toLocaleDateString()}</text>
-      <text text-anchor="end" x="590" y="290" style="fill:lightgray">${new Date().toLocaleTimeString()}</text>
+      <text text-anchor="end" x="590" y="275" style="fill:lightgray">${new Date().toLocaleDateString('en-US')}</text>
+      <text text-anchor="end" x="590" y="290" style="fill:lightgray">${new Date().toLocaleTimeString('en-US')}</text>
     </svg>`
 }
 

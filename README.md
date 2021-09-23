@@ -57,6 +57,7 @@ if (pathname == `/result.svg`) {
 # live results
 
 We incorporate this on-demand rerendered chart using the same syntax used for images in GitHub markdown.
+This disapoints as the 'no-cache' header doesn't prevent GitHub from caching the image. Try it [live](https://extracts.deno.dev/result.svg).
 
 ```
   ![Extracts Remaining](https://extracts.deno.dev/result.svg)

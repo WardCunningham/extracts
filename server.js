@@ -43,7 +43,7 @@ addEventListener("fetch", async (event) => {
   } else {
     event.respondWith(
       new Response(`can't handle ${event.request.url}`, {
-        status: 500,
+        status: 400,
         headers: {
           "content-type": "text/html",
           "access-control-allow-origin": "*"
@@ -67,6 +67,7 @@ function nrql(query) {
 }
 
 function svg(result) {
+  console.log('nrql guid', result.metadata.guid, 'query time', result.performanceStats.wallClockTime)
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <svg viewBox="0 0 600 300" style="background-color:white"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -81,6 +82,8 @@ function svg(result) {
         ${lines(result)}
         </g>
       </g>
+      <text text-anchor="end" x="590" y="275" style="fill:lightgray">${new Date().toLocaleDateString()}</text>
+      <text text-anchor="end" x="590" y="290" style="fill:lightgray">${new Date().toLocaleTimeString()}</text>
     </svg>`
 }
 

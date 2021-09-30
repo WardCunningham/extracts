@@ -1,0 +1,48 @@
+<html>
+<head>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🟡</text></svg>">
+</head>
+<body>
+  <style>
+    body {font-family: "Helvetica Neue", Verdana, helvetica, Arial, Sans;}
+  </style>
+  <p>
+    <button onclick=remaining()>remaining extracts</button>
+    <button onclick=latest()>latest failures</button>
+  </p>
+  <div id=result></div>
+
+<script type=module>
+
+  window.remaining = function() {
+    window.result.innerHTML = `<center><img width:90% src=/result.svg?cache=${Math.random()}></center>`
+  }
+
+  window.latest = async function() {
+    let results = await fetch(`/latest.json`).then(res => res.json())
+    let logs = results.facets.map(result => {
+      let {name, results} = result
+      let [log,timestamp,exitStatus,elapsed] = results.map(obj => obj.latest)
+      return {name,log,timestamp,exitStatus,elapsed}
+    })
+    logs.sort((a,b) => a.timestamp - b.timestamp)
+    let prev = null
+    let run = event => Math.floor(event.timestamp / (6*60*60*1000))
+    function sepx(event) {
+      let mark = run(prev||logs[0]) != run(event)
+      prev = event
+      return mark ? '<br>' : ''
+    }
+    let html = logs.map(e => `
+      ${sepx(e)}
+      <details>
+        <summary>${new Date(e.timestamp).toLocaleString()} &nbsp; <b>${e.name}</b></summary>
+        <pre>${e.log}</pre>
+      </details>`
+    )
+    window.result.innerHTML = html.join("\n")
+  }
+
+</script>
+</body>
+</html>

@@ -6,51 +6,27 @@ let query = `select task, remaining from eldoradoTask where remaining is not nul
 
 addEventListener("fetch", async (event) => {
   let { pathname, search, origin } = new URL(event.request.url)
+  const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
+  const resp = (status, headers, body) => event.respondWith(new Response(body, {status, headers}))
+
   if (pathname == `/`) {
-    event.respondWith(
-      new Response(html, {
-        status: 200,
-        headers: {
-          "content-type": "text/html; charset=UTF-8",
-        }
-      })
-    )
-  } else if (pathname == `/result.json`) {
+    resp(200, head('text/html'), html)
+  }
+  else if (pathname == `/result.json`) {
     let result = (await nrql(query))
     if (result && result.performanceStats)
       console.log(result.performanceStats)
     else
       console.log('unexpected result', result)
-    event.respondWith(
-      new Response(JSON.stringify(result||{},null,2)), {
-        status: 200,
-        headers: {
-          "content-type": "application/json",
-          "access-control-allow-origin": "*"
-        }
-      })
-  } else if (pathname == `/result.svg`) {
+    resp(200, head('application/json'), JSON.stringify(result||{},null,2))
+  }
+  else if (pathname == `/result.svg`) {
     let result = (await nrql(query))
-    event.respondWith(
-      new Response(svg(result), {
-        status: 200,
-        headers: {
-          "content-type": "image/svg+xml",
-          "access-control-allow-origin": "*",
-          "Cache-Control": "no-cache"
-        }
-      }))
-  } else {
-    event.respondWith(
-      new Response(`can't handle ${event.request.url}`, {
-        status: 400,
-        headers: {
-          "content-type": "text/html",
-          "access-control-allow-origin": "*"
-        }
-      })
-    )
-  } 
+    resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
+  }
+  else {
+    resp(400,head('text/html'),`can't handle ${event.request.url}`)
+  }
 })
 
 function nrql(query) {

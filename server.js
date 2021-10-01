@@ -1,35 +1,35 @@
 // serve and render progress in 6-hour extract cycle
 // usage: ACCT_1_INSIGHTS_QUERY_KEY='...' ~/.deno/bin/deployctl run server.js
 
-let html = await Deno.readFile("./client.html")
-let query = `select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`
-
 addEventListener("fetch", async (event) => {
   let { pathname, search, origin } = new URL(event.request.url)
+  let params = new URLSearchParams(search)
+
   const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
   const resp = (status, headers, body) => event.respondWith(new Response(body, {status, headers}))
+  const nrdb = async query => {
+    let result = (await nrql(query))
+    if (result && result.performanceStats)
+      console.log(query, result.performanceStats)
+    else
+      console.log('unexpected result', query, result)
+    resp(200, head('application/json'), JSON.stringify(result||{},null,2))
+  }
 
   if (pathname == `/`) {
     resp(200, head('text/html'), await Deno.readFile("./client.html"))
   }
   else if (pathname == `/latest.json`) {
-    let result = (await nrql(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`))
-    if (result && result.performanceStats)
-      console.log(result.performanceStats)
-    else
-      console.log('unexpected result', result)
-    resp(200, head('application/json'), JSON.stringify(result||{},null,2))
+    nrdb(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed), latest(type) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`)
+  }
+  else if (pathname == `/history.json`) {
+    nrdb(`SELECT * from eldoradoTask where task='${params.get('task')||'transform.sh'}' since 1 month ago limit 200`)
   }
   else if (pathname == `/result.json`) {
-    let result = (await nrql(query))
-    if (result && result.performanceStats)
-      console.log(result.performanceStats)
-    else
-      console.log('unexpected result', result)
-    resp(200, head('application/json'), JSON.stringify(result||{},null,2))
+    nrdb(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`)
   }
   else if (pathname == `/result.svg`) {
-    let result = (await nrql(query))
+    let result = (await nrql(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`))
     resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
   }
   else {

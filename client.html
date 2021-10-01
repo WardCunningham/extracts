@@ -22,9 +22,10 @@
     let results = await fetch(`/latest.json`).then(res => res.json())
     let logs = results.facets.map(result => {
       let {name, results} = result
-      let [log,timestamp,exitStatus,elapsed] = results.map(obj => obj.latest)
-      return {name,log,timestamp,exitStatus,elapsed}
+      let [log,timestamp,exitStatus,elapsed,type] = results.map(obj => obj.latest)
+      return {name,log,timestamp,exitStatus,elapsed,type}
     })
+    logs = logs.filter(e => e.type != 'transform')
     logs.sort((a,b) => a.timestamp - b.timestamp)
     let prev = null
     let run = event => Math.floor(event.timestamp / (6*60*60*1000))
@@ -37,6 +38,36 @@
       ${sepx(e)}
       <details>
         <summary>${new Date(e.timestamp).toLocaleString()} &nbsp; <b>${e.name}</b></summary>
+        <pre>${e.log}</pre>
+        <button onclick="alltask('${e.name}')">all ${e.name} logs</button>
+      </details>`
+    )
+    window.result.innerHTML = html.join("\n")
+  }
+
+  window.alltask = async function(task) {
+    let results = await fetch(`/history.json?task=${task.replace(/ /g,'%20')}`).then(res => res.json())
+    let logs = results.results[0].events.map(event => {
+      let {elapsed, exitStatus,log,timestamp,task} = event
+      return {name:task,log,timestamp,exitStatus,elapsed}
+    })
+    logs.sort((a,b) => a.timestamp - b.timestamp)
+    let prev = null
+    let run = event => Math.floor(event.timestamp / (24*60*60*1000))
+    function sepx(event) {
+      let mark = run(prev||logs[0]) != run(event)
+      prev = event
+      return mark ? '<br>' : ''
+    }
+    let html = logs.map(e => `
+      ${sepx(e)}
+      <details>
+        <summary>
+          ${new Date(e.timestamp).toLocaleString()} &nbsp;
+          ${e.exitStatus == 0 ? '0' : `<font color=red>${e.exitStatus}</font>`}
+          ${e.elapsed.toFixed(1)}
+          <b>${e.name}</b>
+        </summary>
         <pre>${e.log}</pre>
       </details>`
     )

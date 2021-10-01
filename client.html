@@ -4,7 +4,8 @@
 </head>
 <body>
   <style>
-    body {font-family: "Helvetica Neue", Verdana, helvetica, Arial, Sans;}
+    body { font-family: "Helvetica Neue", Verdana, helvetica, Arial, Sans; }
+    pre { white-space: pre-wrap; }
   </style>
   <p>
     <button onclick=remaining()>remaining extracts</button>
@@ -38,8 +39,8 @@
       ${sepx(e)}
       <details>
         <summary>${new Date(e.timestamp).toLocaleString()} &nbsp; <b>${e.name}</b></summary>
+        <p><button onclick="alltask('${e.name}')">all for one month</button></p>
         <pre>${e.log}</pre>
-        <button onclick="alltask('${e.name}')">all ${e.name} logs</button>
       </details>`
     )
     window.result.innerHTML = html.join("\n")

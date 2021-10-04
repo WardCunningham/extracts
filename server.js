@@ -29,7 +29,7 @@ addEventListener("fetch", async (event) => {
     nrdb(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`)
   }
   else if (pathname == `/result.svg`) {
-    let result = (await nrql(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`))
+    let result = (await nrql(`select task, remaining from eldoradoTask where remaining is not null since 1 week ago limit 1500`))
     resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
   }
   else {

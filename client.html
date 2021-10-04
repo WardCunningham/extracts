@@ -40,7 +40,7 @@
       <details>
         <summary>${new Date(e.timestamp).toLocaleString()} &nbsp; <b>${e.name}</b></summary>
         <p><button onclick="alltask('${e.name}')">all for one month</button></p>
-        <pre>${e.log}</pre>
+        <pre>${e.log.replace(/=================/g,'==')}</pre>
       </details>`
     )
     window.result.innerHTML = html.join("\n")

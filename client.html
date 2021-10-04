@@ -78,7 +78,7 @@
           <b>${e.name}</b>
           ${select(e.log)}
         </summary>
-        <pre>${e.log}</pre>
+        <pre>${e.log.replace(/=================/g,'==')}</pre>
       </details>`
     )
     window.result.innerHTML = html.join("\n")

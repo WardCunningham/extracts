@@ -52,6 +52,7 @@ function nrql(query) {
 
 function svg(result) {
   console.log('nrql guid', result.metadata.guid, 'query time', result.performanceStats.wallClockTime)
+  try {
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <svg viewBox="0 0 600 300" style="background-color:white"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -69,6 +70,9 @@ function svg(result) {
       <text text-anchor="end" x="590" y="275" style="fill:lightgray">${new Date().toLocaleDateString("en-US", {timeZone: "America/Los_Angeles"})}</text>
       <text text-anchor="end" x="590" y="290" style="fill:lightgray">${new Date().toLocaleTimeString("en-US", {timeZone: "America/Los_Angeles"})}</text>
     </svg>`
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 function lines(result) {

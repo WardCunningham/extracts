@@ -30,7 +30,7 @@ addEventListener("fetch", async (event) => {
   }
   else if (pathname == `/result.svg`) {
     let result = (await nrql(`select task, remaining from eldoradoTask where remaining is not null since 1 week ago limit 1500`))
-    resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
+    try {resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))} catch(error) {console.error(error)}
   }
   else {
     resp(400,head('text/html'),`can't handle ${event.request.url}`)

@@ -67,8 +67,10 @@ function svg(result) {
         ${lines(result)}
         </g>
       </g>
+      <!--
       <text text-anchor="end" x="590" y="275" style="fill:lightgray">${new Date().toLocaleDateString("en-US", {timeZone: "America/Los_Angeles"})}</text>
       <text text-anchor="end" x="590" y="290" style="fill:lightgray">${new Date().toLocaleTimeString("en-US", {timeZone: "America/Los_Angeles"})}</text>
+      -->
     </svg>`
   } catch (error) {
     console.error(error)

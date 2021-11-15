@@ -35,15 +35,21 @@
       prev = event
       return mark ? '<br>' : ''
     }
-    let html = logs.map(e => `
-      ${sepx(e)}
-      <details>
-        <summary>${new Date(e.timestamp).toLocaleString()} &nbsp; <b>${e.name}</b></summary>
-        <p><button onclick="alltask('${e.name}')">all for one month</button></p>
-        <pre>${e.log.replace(/=================/g,'==')}</pre>
-      </details>`
-    )
-    window.result.innerHTML = html.join("\n")
+    let div = document.querySelector('#result')
+    while(div.firstChild) div.removeChild(div.firstChild)
+    for (let event of logs) {
+      let slot = document.createElement('div');
+      slot.innerHTML = `
+        ${sepx(event)}
+        <details>
+          <summary>${new Date(event.timestamp).toLocaleString()} &nbsp; <b>${event.name}</b></summary>
+          <p><button onclick="alltask('${event.name}')">all for one month</button></p>
+          <pre></pre>
+        </details>
+      `
+      slot.querySelector('pre').innerText = event.log.replace(/=================/g,'==')
+      div.appendChild(slot)
+    }
   }
 
   window.alltask = async function(task) {
@@ -68,20 +74,26 @@
       if (!line) return ''
       return line.substring(0,60)
     }
-    let html = logs.map(e => `
-      ${sepx(e)}
-      <details>
-        <summary>
-          ${new Date(e.timestamp).toLocaleString()} &nbsp;
-          ${e.exitStatus == 0 ? '0' : `<font color=red>${e.exitStatus}</font>`}
-          ${e.elapsed.toFixed(1)}
-          <b>${e.name}</b>
-          ${select(e.log)}
-        </summary>
-        <pre>${e.log.replace(/=================/g,'==')}</pre>
-      </details>`
-    )
-    window.result.innerHTML = html.join("\n")
+    let div = document.querySelector('#result')
+    while(div.firstChild) div.removeChild(div.firstChild)
+    for (event of logs) {
+      let slot = document.createElement('div');
+      slot.innerHTML = `
+        ${sepx(event)}
+        <details>
+          <summary>
+            ${new Date(event.timestamp).toLocaleString()} &nbsp;
+            ${event.exitStatus == 0 ? '0' : `<font color=red>${event.exitStatus}</font>`}
+            ${event.elapsed.toFixed(1)}
+            <b>${event.name}</b> <span></span>
+          </summary>
+          <pre></pre>
+        </details>
+      `
+      slot.querySelector('pre').innerText = event.log.replace(/=================/g,'==')
+      slot.querySelector('span').innerText = select(event.log)
+      div.appendChild(slot)
+    }
   }
 
 </script>

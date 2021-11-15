@@ -1,39 +1,43 @@
 // serve and render progress in 6-hour extract cycle
-// usage: ACCT_1_INSIGHTS_QUERY_KEY='...' ~/.deno/bin/deployctl run server.js
+// usage: ACCT_1_INSIGHTS_QUERY_KEY='...' deno run --allow-net --allow-read  --allow-env server.js
 
-addEventListener("fetch", async (event) => {
-  let { pathname, search, origin } = new URL(event.request.url)
-  let params = new URLSearchParams(search)
+import { serve } from "https://deno.land/std@0.114.0/http/server.ts"
+await serve(async request => {
+  try {
+    let { pathname, search, origin } = new URL(request.url)
+    let params = new URLSearchParams(search)
 
-  const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
-  const resp = (status, headers, body) => event.respondWith(new Response(body, {status, headers}))
-  const nrdb = async query => {
-    let result = (await nrql(query))
-    if (result && result.performanceStats)
-      console.log(query, result.performanceStats)
-    else
-      console.log('unexpected result', query, result)
-    resp(200, head('application/json'), JSON.stringify(result||{},null,2))
-  }
+    const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
+    const resp = (status, headers, body) => new Response(body, {status, headers})
+    const nrdb = async query => {
+      let result = (await nrql(query))
+      log(query, result)
+      return resp(200, head('application/json'), JSON.stringify(result||{},null,2))
+    }
 
-  if (pathname == `/`) {
-    resp(200, head('text/html'), await Deno.readFile("./client.html"))
-  }
-  else if (pathname == `/latest.json`) {
-    nrdb(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed), latest(type) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`)
-  }
-  else if (pathname == `/history.json`) {
-    nrdb(`SELECT * from eldoradoTask where task='${params.get('task')||'transform.sh'}' since 1 month ago limit 200`)
-  }
-  else if (pathname == `/result.json`) {
-    nrdb(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`)
-  }
-  else if (pathname == `/result.svg`) {
-    let result = (await nrql(`select task, remaining from eldoradoTask where remaining is not null since 1 week ago limit 1500`))
-    resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
-  }
-  else {
-    resp(400,head('text/html'),`can't handle ${event.request.url}`)
+    if (pathname == `/`) {
+      return resp(200, head('text/html'), await Deno.readFile("./client.html"))
+    }
+    else if (pathname == `/latest.json`) {
+      return nrdb(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed), latest(type) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`)
+    }
+    else if (pathname == `/history.json`) {
+      return nrdb(`SELECT * from eldoradoTask where task='${params.get('task')||'transform.sh'}' since 1 month ago limit 200`)
+    }
+    else if (pathname == `/result.json`) {
+      return nrdb(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`)
+    }
+    else if (pathname == `/result.svg`) {
+      let query = `select task, remaining from eldoradoTask where remaining is not null since 1 week ago limit 1500`
+      let result = await nrql(query)
+      log(query, result)
+      return resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
+    }
+    else {
+      return resp(400,head('text/html'),`can't handle ${event.request.url}`)
+    }
+  } catch(e) {
+    console.log(e)
   }
 })
 
@@ -48,6 +52,13 @@ function nrql(query) {
   return fetch(url, {headers})
     .then(res => res.ok ? res.json() : console.log(res.statusText))
     .catch(err => console.log('fetch rejected',err))
+}
+
+function log(query, result) {
+  if (result && result.performanceStats)
+    console.log(query, result.performanceStats)
+  else
+    console.log('unexpected result', query, result)
 }
 
 function svg(result) {

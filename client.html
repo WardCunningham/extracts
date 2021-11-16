@@ -47,7 +47,7 @@
           <pre></pre>
         </details>
       `
-      slot.querySelector('pre').innerText = event.log.replace(/=================/g,'==')
+      slot.querySelector('pre').innerText = event.log.replace(/=================/g,'==').replace(/<br>/g,"\n")
       div.appendChild(slot)
     }
   }
@@ -69,7 +69,7 @@
     }
     function select(log) {
       if (!selection.length) return ''
-      let lines = log.split(/<br>/)
+      let lines = log.split(/\n/)
       let line = lines.find(line => line.includes(selection))
       if (!line) return ''
       return line.substring(0,60)
@@ -90,8 +90,8 @@
           <pre></pre>
         </details>
       `
-      slot.querySelector('pre').innerText = event.log.replace(/=================/g,'==')
-      slot.querySelector('span').innerText = select(event.log)
+      slot.querySelector('pre').innerText = event.log.replace(/=================/g,'==').replace(/<br>/g,"\n")
+      slot.querySelector('span').innerText = select(event.log.replace(/<br>/g,"\n"))
       div.appendChild(slot)
     }
   }

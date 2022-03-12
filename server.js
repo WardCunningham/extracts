@@ -99,7 +99,7 @@ function lines(result) {
   let look = ['red', 0.7]
   while (older > first) {
     let seq = events.filter(event => event.timestamp >= older && event.timestamp < older+interval)
-    runs.push(draw(seq, ...look))
+    if(seq.length) runs.push(draw(seq, ...look))
     older -= interval
     look = ['gray', 0.1]
   }

@@ -62,7 +62,7 @@ function log(query, result) {
 }
 
 function svg(result) {
-  console.log('nrql guid', result.metadata.guid, 'query time', result.performanceStats.wallClockTime)
+  console.log('nrql guid', result.metadata.guid, 'query time', result.performanceStats.wallClockTime, 'event count', result.results[0].events.length)
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <svg viewBox="0 0 600 300" style="background-color:white"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

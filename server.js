@@ -22,7 +22,7 @@ await serve(async request => {
       return nrdb(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed), latest(type) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`)
     }
     else if (pathname == `/history.json`) {
-      return nrdb(`SELECT * from eldoradoTask where task='${params.get('task')||'transform.sh'}' since 1 month ago limit 200`)
+      return nrdb(`SELECT * from eldoradoTask where task='${(params.get('task')||'transform.sh').replace(/[^\d\w.-]/g,'')}' since 1 month ago limit 200`)
     }
     else if (pathname == `/result.json`) {
       return nrdb(`select task, remaining from eldoradoTask where remaining is not null since 48 hours ago limit 400`)

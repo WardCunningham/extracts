@@ -36,7 +36,7 @@ await serve(async request => {
       return resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
     }
     else if (pathname == `/login`) {
-      const plain = request.text()
+      const plain = await request.text()
       console.log('login', plain)
       const hash = bcrypt.hashSync(plain)
       resp(200,head('text/plain'),'ok')

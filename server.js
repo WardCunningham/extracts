@@ -1,7 +1,8 @@
 // serve and render progress in 6-hour extract cycle
 // usage: ACCT_1_INSIGHTS_QUERY_KEY='...' deno run --allow-net --allow-read  --allow-env server.js
 
-import { serve } from "https://deno.land/std@0.114.0/http/server.ts"
+import { serve } from "https://deno.land/std/http/server.ts"
+import { setCookie, getCookie } from "https://deno.land/std/http/cookie.ts"
 import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts"
 
 await serve(async request => {
@@ -39,7 +40,11 @@ await serve(async request => {
       const hash = Deno.env.get("ADMIN_PW_HASH")
       const plain = await request.text()
       const ok = bcrypt.compareSync(plain, hash)
-      return resp(200,head('text/plain'),ok?'ok':'try again')
+      const headers = {
+        "Content-Type": "text/plain",
+        "Set-Cookie": `admin=${Date.now()}; Max-Age=${365*24*60*60}`
+      }
+      return resp(200,headers,ok?'ok':'try again')
     }
     else {
       return resp(400,head('text/html'),`can't handle ${event.request.url}`)

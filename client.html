@@ -20,11 +20,10 @@
     window.result.innerHTML = `<center><img width:90% src=/result.svg?cache=${Math.random()}></center>`
   }
 
-  window.login = async function() {
-    window.result.innerHTML = `<input type=password placeholder=password size=50>`
+  window.login = function() {
+    window.result.innerHTML = `<input type=password placeholder=password size=45>`
     window.result.querySelector('input').addEventListener('change', async (event) => {
       const body = event.target.value
-      console.log(body)
       const reply = await fetch(`/login`,{method:'POST',body}).then(res => res.text())
       window.result.innerText = reply
     })

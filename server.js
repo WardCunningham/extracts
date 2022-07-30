@@ -37,7 +37,7 @@ await serve(async request => {
     }
     else if (pathname == `/login`) {
       const decoder = new TextDecoder()
-      const buf = await Deno.readAll(request.body);
+      const buf = await readAll(request.body);
       const plain = decoder.decode(buf)
       console.log('login', plain)
       const hash = bcrypt.hashSync(plain)

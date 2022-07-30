@@ -41,7 +41,7 @@ await serve(async request => {
       const ok = bcrypt.compareSync(plain, hash)
       const headers = {
         "Content-Type": "text/plain",
-        "Set-Cookie": `admin=${ok?Date.now():''}; Max-Age=${365*24*60*60}`
+        "Set-Cookie": ok?`admin=${Date.now()}; Max-Age=${365*24*60*60}`:''
       }
       return resp(200,headers,ok?'ok':'try again')
     }

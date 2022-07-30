@@ -1,17 +1,20 @@
 // serve and render progress in 6-hour extract cycle
 // usage: ACCT_1_INSIGHTS_QUERY_KEY='...' deno run --allow-net --allow-read  --allow-env server.js
 
-import { serve } from "https://deno.land/std@0.114.0/http/server.ts"
+import { serve } from "https://deno.land/std/http/server.ts"
+import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts"
+
 await serve(async request => {
   try {
     let { pathname, search, origin } = new URL(request.url)
     let params = new URLSearchParams(search)
+    let headers = Object.fromEntries(request.headers.entries())
+    let admin = headers.cookie && headers.cookie.match(/admin=\d+/)
 
     const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
     const resp = (status, headers, body) => new Response(body, {status, headers})
     const nrdb = async query => {
       let result = (await nrql(query))
-      log(query, result)
       return resp(200, head('application/json'), JSON.stringify(result||{},null,2))
     }
 
@@ -19,9 +22,11 @@ await serve(async request => {
       return resp(200, head('text/html'), await Deno.readFile("./client.html"))
     }
     else if (pathname == `/latest.json`) {
+      if (!admin) return resp(401,head('text/plain'),'login required')
       return nrdb(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed), latest(type) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`)
     }
     else if (pathname == `/history.json`) {
+      if (!admin) return resp(401,head('text/plain'),'login required')
       return nrdb(`SELECT * from eldoradoTask where task='${(params.get('task')||'transform.sh').replace(/[^\d\w.-]/g,'')}' since 1 month ago limit 200`)
     }
     else if (pathname == `/result.json`) {
@@ -32,6 +37,16 @@ await serve(async request => {
       let result = await nrql(query)
       log(query, result)
       return resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
+    }
+    else if (pathname == `/login`) {
+      const hash = Deno.env.get("ADMIN_PW_HASH")
+      const plain = await request.text()
+      const ok = bcrypt.compareSync(plain, hash)
+      const headers = {
+        "Content-Type": "text/plain",
+        "Set-Cookie": ok?`admin=${Date.now()}; Max-Age=${365*24*60*60}`:`admin=; Max-Age=0`
+      }
+      return resp(200,headers,ok?'ok':'try again')
     }
     else {
       return resp(400,head('text/html'),`can't handle ${event.request.url}`)

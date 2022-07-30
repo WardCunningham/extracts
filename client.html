@@ -22,10 +22,10 @@
 
   window.login = async function() {
     window.result.innerHTML = `<input type="password" placeholder="password">`
-    window.result.querySelector('input').addEventListener('change', (event) => {
+    window.result.querySelector('input').addEventListener('change', async (event) => {
       const body = event.target.value
       console.log(body)
-      const reply = await fetch(`/login`,{method:'POST',body})
+      const reply = await fetch(`/login`,{method:'POST',body}).then(res => res.text())
       window.result.innerText = reply
     })
   }

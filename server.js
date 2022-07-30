@@ -8,8 +8,8 @@ await serve(async request => {
   try {
     let { pathname, search, origin } = new URL(request.url)
     let params = new URLSearchParams(search)
-    let admin = request.headers.cookie && request.headers.cookie.match(/admin/)
-    console.log('headers', request.headers.cookie, admin)
+    let admin = request.headers && request.headers.match(/admin/)
+    console.log('headers', request.headers, admin)
 
     const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
     const resp = (status, headers, body) => new Response(body, {status, headers})

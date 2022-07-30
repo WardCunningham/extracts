@@ -9,15 +9,12 @@ await serve(async request => {
     let { pathname, search, origin } = new URL(request.url)
     let params = new URLSearchParams(search)
     let headers = Object.fromEntries(request.headers.entries())
-    console.log('headers', headers)
     let admin = headers.cookie && headers.cookie.match(/admin=\d+/)
-    console.log('admin',admin)
 
     const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
     const resp = (status, headers, body) => new Response(body, {status, headers})
     const nrdb = async query => {
       let result = (await nrql(query))
-      log(query, result)
       return resp(200, head('application/json'), JSON.stringify(result||{},null,2))
     }
 

@@ -16,6 +16,11 @@
 
 <script type=module>
 
+  const ok = res => {
+    if (res.ok) return true
+    res.text().then(msg => {window.result.innerText = msg})
+  }
+
   window.remaining = function() {
     window.result.innerHTML = `<center><img width:90% src=/result.svg?cache=${Math.random()}></center>`
   }
@@ -30,7 +35,7 @@
   }
 
   window.latest = async function() {
-    let results = await fetch(`/latest.json`).then(res => res.json())
+    let results = await fetch(`/latest.json`).then(res => ok(res) && res.json())
     let logs = results.facets.map(result => {
       let {name, results} = result
       let [log,timestamp,exitStatus,elapsed,type] = results.map(obj => obj.latest)
@@ -64,7 +69,7 @@
 
   window.alltask = async function(task) {
     let selection = window.getSelection().toString()
-    let results = await fetch(`/history.json?task=${task.replace(/ /g,'%20')}`).then(res => res.json())
+    let results = await fetch(`/history.json?task=${task.replace(/ /g,'%20')}`).then(res => ok(res) && res.json())
     let logs = results.results[0].events.map(event => {
       let {elapsed, exitStatus,log,timestamp,task} = event
       return {name:task,log,timestamp,exitStatus,elapsed}

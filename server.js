@@ -2,7 +2,6 @@
 // usage: ACCT_1_INSIGHTS_QUERY_KEY='...' deno run --allow-net --allow-read  --allow-env server.js
 
 import { serve } from "https://deno.land/std/http/server.ts"
-import { setCookie, getCookie } from "https://deno.land/std/http/cookie.ts"
 import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts"
 
 await serve(async request => {

@@ -2,6 +2,8 @@
 // usage: ACCT_1_INSIGHTS_QUERY_KEY='...' deno run --allow-net --allow-read  --allow-env server.js
 
 import { serve } from "https://deno.land/std@0.114.0/http/server.ts"
+import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts"
+
 await serve(async request => {
   try {
     let { pathname, search, origin } = new URL(request.url)
@@ -32,6 +34,12 @@ await serve(async request => {
       let result = await nrql(query)
       log(query, result)
       return resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
+    }
+    else if (pathname == `/login`) {
+      const plain = request.body.text()
+      const hash = bcrypt.hashSync(plain)
+      console.log('login', plain)
+      resp(200,head('text/plain'),'ok')
     }
     else {
       return resp(400,head('text/html'),`can't handle ${event.request.url}`)

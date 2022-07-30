@@ -10,6 +10,7 @@
   <p>
     <button onclick=remaining()>remaining extracts</button>
     <button onclick=latest()>latest failures</button>
+    <button onclick=login()>admin login</button>
   </p>
   <div id=result></div>
 
@@ -17,6 +18,13 @@
 
   window.remaining = function() {
     window.result.innerHTML = `<center><img width:90% src=/result.svg?cache=${Math.random()}></center>`
+  }
+
+  window.login = async function() {
+    window.result.innerHTML = `<input type="password" placeholder="password">`
+    window.result.querySelector('input').addEventListener('change', (event) => {
+      console.log(event)
+    })
   }
 
   window.latest = async function() {

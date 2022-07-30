@@ -10,7 +10,7 @@ await serve(async request => {
     let params = new URLSearchParams(search)
     let headers = Object.fromEntries(request.headers.entries())
     console.log('headers', headers)
-    let admin = headers.cookie && headers.cookie.match(/admin=\d/)
+    let admin = headers.cookie && headers.cookie.match(/admin=\d+/)
     console.log('admin',admin)
 
     const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
@@ -25,9 +25,11 @@ await serve(async request => {
       return resp(200, head('text/html'), await Deno.readFile("./client.html"))
     }
     else if (pathname == `/latest.json`) {
+      if (!admin) return resp(401,'','login required')
       return nrdb(`SELECT latest(log), latest(timestamp), latest(exitStatus), latest(elapsed), latest(type) from eldoradoTask where exitStatus > 0 facet task since 1 month ago limit 100`)
     }
     else if (pathname == `/history.json`) {
+      if (!admin) return resp(401,'','login required')
       return nrdb(`SELECT * from eldoradoTask where task='${(params.get('task')||'transform.sh').replace(/[^\d\w.-]/g,'')}' since 1 month ago limit 200`)
     }
     else if (pathname == `/result.json`) {

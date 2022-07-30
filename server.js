@@ -8,7 +8,7 @@ await serve(async request => {
   try {
     let { pathname, search, origin } = new URL(request.url)
     let params = new URLSearchParams(search)
-    let admin = request.headers.cookie.match(/admin/)
+    let admin = request.headers.cookie && request.headers.cookie.match(/admin/)
     console.log('headers', request.headers.cookie, admin)
 
     const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})

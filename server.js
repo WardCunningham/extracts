@@ -8,6 +8,7 @@ await serve(async request => {
   try {
     let { pathname, search, origin } = new URL(request.url)
     let params = new URLSearchParams(search)
+    console.log('headers', request.headers)
 
     const head = mime => ({"content-type": `${mime}; charset=UTF-8`, "access-control-allow-origin": "*"})
     const resp = (status, headers, body) => new Response(body, {status, headers})
@@ -41,7 +42,7 @@ await serve(async request => {
       const ok = bcrypt.compareSync(plain, hash)
       const headers = {
         "Content-Type": "text/plain",
-        "Set-Cookie": ok?`admin=${Date.now()}; Max-Age=${365*24*60*60}`:`admin=; Expires=${new Date(0)}`
+        "Set-Cookie": ok?`admin=${Date.now()}; Max-Age=${365*24*60*60}`:`admin=; Max-Age=0`
       }
       return resp(200,headers,ok?'ok':'try again')
     }

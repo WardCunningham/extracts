@@ -37,9 +37,10 @@ await serve(async request => {
     }
     else if (pathname == `/login`) {
       const plain = await request.text()
-      console.log('login', plain)
+      console.log('plain', plain)
       const hash = bcrypt.hashSync(plain)
-      resp(200,head('text/plain'),'ok')
+      console.log('hash', hash)
+      return resp(200,head('text/plain'),'ok')
     }
     else {
       return resp(400,head('text/html'),`can't handle ${event.request.url}`)

@@ -36,11 +36,10 @@ await serve(async request => {
       return resp(200, {...head('image/svg+xml'),"Cache-Control":"no-cache"}, svg(result))
     }
     else if (pathname == `/login`) {
+      const hash = Deno.env.get("ADMIN_PW_HASH")
       const plain = await request.text()
-      console.log('plain', plain)
-      const hash = bcrypt.hashSync(plain)
-      console.log('hash', hash)
-      return resp(200,head('text/plain'),'ok')
+      const ok = bcrypt.compareSync(plain, hash)
+      return resp(200,head('text/plain'),ok?'ok':'try again')
     }
     else {
       return resp(400,head('text/html'),`can't handle ${event.request.url}`)

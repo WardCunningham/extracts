@@ -21,7 +21,7 @@
   }
 
   window.login = async function() {
-    window.result.innerHTML = `<input type="password" placeholder="password">`
+    window.result.innerHTML = `<input type=password placeholder=password size=50>`
     window.result.querySelector('input').addEventListener('change', async (event) => {
       const body = event.target.value
       console.log(body)
